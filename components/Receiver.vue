@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
   </div>
 </template>
 
@@ -19,9 +19,13 @@ export default {
     eventBus.$on('jsonData', (json) => {
       this.combinedData = json;
     });
+    // console.log(this.combinedData);
   },
   mounted() {
-    console.log(this.combinedData);
+    eventBus.$on('jsonData', (json) => {
+      this.combinedData = json;
+      console.log(this.combinedData)
+    });
   }
 }
 </script>

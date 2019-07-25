@@ -10,6 +10,11 @@ export default {
   name: "status-panel",
   components: {
   },
+  data() {
+    return {
+      jsonData: eventBus.$emit('test-event', this.combinedData)
+    }
+  },
   asyncData() {
     // 'http://localhost:3000/release.json',
     // 'http://localhost:3000/responsetime.json',
@@ -81,8 +86,8 @@ export default {
       combinedData["statusJSONRequest"] = data[2]["environments"];
       combinedData["statusJSONRequest"] = data[2]["incidents"]
       combinedData["transactionJSONRequest"] = data[3]["metrics"];
-
       eventBus.$emit('jsonData', JSON.stringify(combinedData));
+      return JSON.stringify(combinedData);
     });
     // console.log(combinedData)
 

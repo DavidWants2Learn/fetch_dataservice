@@ -1,6 +1,7 @@
 <template>
   <div>
     <receiver />
+    <statusPanel />
   </div>
 </template>
 
