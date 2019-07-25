@@ -1,10 +1,10 @@
 <template>
   <div>
-    {{combinedData}}
   </div>
 </template>
 
 <script>
+import { eventBus } from '~/plugins/eventBus.js'
 
 export default {
   name: "status-panel",
@@ -21,6 +21,9 @@ export default {
     // url+statusJSON,
     // url+transactionJSON
   },
+  props: [
+    'combinedData'
+  ],
   methods: {
     switchName() {
       return this.myName;
@@ -78,8 +81,12 @@ export default {
       combinedData["statusJSONRequest"] = data[2]["environments"];
       combinedData["statusJSONRequest"] = data[2]["incidents"]
       combinedData["transactionJSONRequest"] = data[3]["metrics"];
-      return combinedData;
+
+      eventBus.$emit('jsonData', JSON.stringify(combinedData));
     });
+    // console.log(combinedData)
+
+  // this.$bus.$emit('test-event', combinedData);
   }
 }
 </script>
