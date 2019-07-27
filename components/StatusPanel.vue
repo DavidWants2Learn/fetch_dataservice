@@ -82,7 +82,7 @@ export default {
       combinedData["resourceJSON"] = data[4];
       combinedData["date"] = data[5];
       eventBus.$emit('jsonData', JSON.stringify(combinedData));
-      return JSON.stringify(combinedData);
+      // return JSON.stringify(combinedData);
     });
   }
 }
