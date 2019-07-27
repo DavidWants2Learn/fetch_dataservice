@@ -1,18 +1,21 @@
 <template>
   <div>
-    <receiver />
-    <statusPanel />
+    <!-- <receiver />
+    <statusPanel /> -->
+    <showButtonNumber />
   </div>
 </template>
 
 <script>
+import showButtonNumber from '~/components/showButtonNumber.vue'
 import statusPanel from '~/components/StatusPanel.vue'
 import receiver from '~/components/receiver.vue'
 
 export default {
   components: {
     receiver,
-    statusPanel
+    statusPanel,
+    showButtonNumber
   }
 }
 </script>
