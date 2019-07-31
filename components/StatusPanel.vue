@@ -1,5 +1,6 @@
 <template>
   <div>
+    
   </div>
 </template>
 
@@ -81,7 +82,7 @@ export default {
       combinedData["transactionJSON"] = data[3]["metrics"];
       combinedData["resourceJSON"] = data[4];
       combinedData["date"] = data[5];
-      eventBus.$emit('jsonData', JSON.stringify(combinedData));
+      eventBus.$emit('jsonData', (combinedData));
       // return JSON.stringify(combinedData);
     });
   }

@@ -2,7 +2,8 @@
   <div>
     <!-- <receiver />
     <statusPanel /> -->
-    <showButtonNumber />
+    <!-- <showButtonNumber /> -->
+    <lifeCycleHooks />
   </div>
 </template>
 
@@ -10,12 +11,14 @@
 import showButtonNumber from '~/components/showButtonNumber.vue'
 import statusPanel from '~/components/StatusPanel.vue'
 import receiver from '~/components/receiver.vue'
+import lifeCycleHooks from '~/components/lifeCycleHooks.vue'
 
 export default {
   components: {
     receiver,
     statusPanel,
-    showButtonNumber
+    showButtonNumber,
+    lifeCycleHooks
   }
 }
 </script>
