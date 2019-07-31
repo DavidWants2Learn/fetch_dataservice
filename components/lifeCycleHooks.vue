@@ -13,8 +13,8 @@
 
 import * as d3 from 'd3';
 
-import { eventBus } from '~/plugins/eventBus.js'
-import statusPanel from '~/components/StatusPanel.vue'
+import { eventBus } from '~/plugins/eventBus.js';
+import statusPanel from '~/components/StatusPanel.vue';
 import { setInterval } from 'timers';
 
 // import buttonClick from '~/components/Widgets/buttonClick.vue'
@@ -33,6 +33,7 @@ export default {
       WIDTH: this.width,
       MARGIN: this.margin,
       DUMMY: this.dummy,
+      WEEKDATA: this.weekData,
       counter: 0,
       // index: this.counter
     }
@@ -46,12 +47,18 @@ export default {
       this.counter--;
       console.log("decrement pressed");
     },
-    drawGraph(dummy, WIDTH, MARGIN, HEIGHT, SVG, MONTHS) {
+    drawGraph(WEEKDATA, WIDTH, MARGIN, HEIGHT, SVG, MONTHS) {
       var width = WIDTH;
       var margin = MARGIN;
       var height = HEIGHT;
       var svg = SVG;
       var months = MONTHS;
+
+      console.log("Check WEEKDATA data: ");
+      console.log(WEEKDATA);
+      var dummy = WEEKDATA[this.counter]
+      console.log(WEEKDATA[this.counter]);
+      console.log(dummy);
 
         // create scales
         const xScale = d3.scaleBand()
@@ -128,28 +135,23 @@ export default {
   beforeCreate() {
     // Data inactive, events not set up
     console.log('BeforeCreate(): Nothing gets called before this')
-    
   },
   computed: {
     propertyComputed() {
-      console.log('I change when this.property changes.')
-      return this.property
-      
+      // console.log('I change when this.property changes.')
+      // return this.property
     }
-    
   },
   created() {
-    console.log(this.property);
-    this.property = 'Example property update.'
+    // console.log(this.property);
+    // this.property = 'Example property update.'
     console.log('PropertyComputed will update, as this.property is now reactive.')
-    console.log(this.property);
+    // console.log(this.property);
   },
   beforeMount() {
     console.log("Before Mount");
   },
   mounted() {
-    // console.log("Where am I");
-    // console.log(this.counter);
     var currentDateTime = Date;
     const element = document.getElementById('histogram');
     const margin = { top: 40, bottom: 30, left: 125, right: 1 };
@@ -194,38 +196,38 @@ export default {
         }
         weekData[weekList][dayNumber] = data[i];
       }
-      var dummy = [];
+      console.log("Here");
+      console.log(weekData);
       
+      // var dummy = [];
+      this.WEEKDATA = weekData,
       this.MONTHS = months;
       this.SVG = svg;
       this.HEIGHT = height;
       this.WIDTH = width;
       this.MARGIN = margin;
-      // this.index = this.counter;
-      // console.log(weekData[this.index]);
-      dummy = weekData[this.counter];
-      this.DUMMY = dummy;
 
-      this.drawGraph(this.DUMMY, this.WIDTH, this.MARGIN, this.HEIGHT, this.SVG, this.MONTHS);
+      this.drawGraph(this.WEEKDATA, this.WIDTH, this.MARGIN, this.HEIGHT, this.SVG, this.MONTHS);
     });
   },
   //Loads up to here on refresh.
   beforeUpdate() {
     console.log("Before Update");
-    console.log(this.counter);
-
-    // this.drawGraph(this.DUMMY, this.WIDTH, this.MARGIN, this.HEIGHT, this.SVG, this.MONTHS);
+    console.log("Counter " + this.counter);
+    d3.selectAll("g > *").remove();
+    // this.drawGraph(this.WEEKDATA, this.WIDTH, this.MARGIN, this.HEIGHT, this.SVG, this.MONTHS);
   },
   updated() {
     //  === this.counter
     // console.log(this.$refs['dom-element'].textContent);
     // console.log(this.counter);
     console.log("Updated");    
-    // this.drawGraph(this.DUMMY, this.WIDTH, this.MARGIN, this.HEIGHT, this.SVG, this.MONTHS);
+    this.drawGraph(this.WEEKDATA, this.WIDTH, this.MARGIN, this.HEIGHT, this.SVG, this.MONTHS);
 
   },
   beforeDestroy() {
-    console.log("Before Destroy");    
+    console.log("Before Destroy");
+    delete this.drawGraph(this.WEEKDATA, this.WIDTH, this.MARGIN, this.HEIGHT, this.SVG, this.MONTHS);
   },
   destroyed() {
     console.log("Destroyed");
